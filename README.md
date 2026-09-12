@@ -4,6 +4,7 @@
 [![Lua](https://img.shields.io/badge/Lua-5.4-blue.svg)](https://www.lua.org/)
 [![ox_lib](https://img.shields.io/badge/Dependency-ox__lib-informational.svg)](https://github.com/overextended/ox_lib)
 [![ox_target](https://img.shields.io/badge/Dependency-ox__target-informational.svg)](https://github.com/overextended/ox_target)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 **sr_sit** is a lightweight, modern, and highly optimized seating system for FiveM. It allows players to seamlessly sit on benches, chairs, sofas, stools, and various seating props across Los Santos using **ox_target**.
 
