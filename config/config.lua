@@ -8,6 +8,9 @@ return {
     ---Enable or disable debug logs in the F8 console
     Debug = false,
 
+    ---Check for script updates on server startup
+    CheckForUpdates = true,
+
     ---Target interaction settings
     Target = {
         icon = 'fa-solid fa-chair',

@@ -22,6 +22,7 @@ Featuring smart seat detection, multi-seat prop support (e.g., long benches or s
 - 🎥 **Smooth Camera Experience**: Automatically disables camera collision with the chair while seated to avoid awkward camera glitches.
 - 🔄 **Safe Position Restoration**: Saves the player's exact original coordinates and restores them cleanly when standing up.
 - 🛡️ **Resource Cleanup**: Gracefully detaches and unfreezes the player if the resource restarts or stops.
+- 🔔 **Version Checker**: Automatically checks GitHub on startup to notify you in the server console if an update is available or if you are running the latest version.
 - ⚡ **Optimized Performance**: **0.00 ms** idle consumption; only runs minimal logic during interaction.
 
 ---
@@ -83,6 +84,9 @@ return {
 
     ---Enable or disable debug logs in F8 console
     Debug = false,
+
+    ---Check for script updates on server startup
+    CheckForUpdates = true,
 
     ---Target interaction settings
     Target = {

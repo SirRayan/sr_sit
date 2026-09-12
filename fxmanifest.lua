@@ -6,7 +6,6 @@ games { 'gta5' }
 author 'SirRayan'
 name 'sr_sit'
 version '1.0.0'
-description 'Advanced prop seating system for FiveM'
 repository 'https://github.com/SirRayan/sr_sit'
 
 dependencies {
@@ -20,6 +19,10 @@ shared_scripts {
 
 client_scripts {
     'client.lua',
+}
+
+server_scripts {
+    'server/version.lua',
 }
 
 files {
