@@ -3,7 +3,7 @@ return {
     ---Specify the language code (e.g., 'en', 'ar').
     ---Leave nil or '' to automatically use ox_lib's default (setr ox:locale in server.cfg).
     ---If neither is specified, it defaults to English ('en').
-    Language = 'ar',
+    Language = 'en',
 
     ---Enable or disable debug logs in the F8 console
     Debug = false,
