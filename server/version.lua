@@ -11,27 +11,17 @@ currentVersion = currentVersion:match('%d+%.%d+%.%d+') or currentVersion
 local repository = 'SirRayan/sr_sit'
 
 local function compareVersions(current, latest)
-    local cv = {}
-    for part in string.gmatch(current, '%d+') do
-        cv[#cv + 1] = tonumber(part)
-    end
-
-    local lv = {}
-    for part in string.gmatch(latest, '%d+') do
-        lv[#lv + 1] = tonumber(part)
-    end
+    local cv, lv = {}, {}
+    for part in string.gmatch(current, '%d+') do cv[#cv + 1] = tonumber(part) end
+    for part in string.gmatch(latest, '%d+') do lv[#lv + 1] = tonumber(part) end
 
     for i = 1, math.max(#cv, #lv) do
         local c = cv[i] or 0
         local l = lv[i] or 0
-        if c < l then
-            return -1 -- Outdated
-        elseif c > l then
-            return 1 -- Ahead / development
-        end
+        if c < l then return -1 end
+        if c > l then return 1 end
     end
-
-    return 0 -- Up to date
+    return 0
 end
 
 local function printVersionStatus(latestVersion)
@@ -41,22 +31,15 @@ local function printVersionStatus(latestVersion)
     local comparison = compareVersions(currentVersion, latestVersion)
 
     if comparison == 0 then
-        print(("^2[%s] You are running the latest version (v%s).^0"):format(resource, currentVersion))
+        print(("^2[%s] You are running the latest version (v%s). No update needed.^0"):format(resource, currentVersion))
     elseif comparison < 0 then
-        print(("^3======================================================================^0"))
-        print(("^3[%s] A new update is available!^0"):format(resource))
-        print(("^3Current Version: v%s | Latest Version: v%s^0"):format(currentVersion, latestVersion))
-        print(("^3Download the update at: https://github.com/%s^0"):format(repository))
-        print(("^3======================================================================^0"))
-    else
-        print(("^5[%s] You are running a development version (v%s) ahead of v%s.^0"):format(resource, currentVersion, latestVersion))
+        print(("^3[%s] Update available: v%s -> v%s (https://github.com/%s)^0"):format(resource, currentVersion, latestVersion, repository))
     end
 end
 
 CreateThread(function()
     Wait(2000)
 
-    -- Try raw fxmanifest first
     PerformHttpRequest(('https://raw.githubusercontent.com/%s/main/fxmanifest.lua'):format(repository), function(status, response)
         if status == 200 and response then
             local version = response:match("version%s*['\"](.-)['\"]")
@@ -65,15 +48,12 @@ CreateThread(function()
             end
         end
 
-        -- Fallback to GitHub Releases API
         PerformHttpRequest(('https://api.github.com/repos/%s/releases/latest'):format(repository), function(relStatus, relResponse)
             if relStatus == 200 and relResponse then
                 local data = json.decode(relResponse)
                 if data and data.tag_name then
                     return printVersionStatus(data.tag_name)
                 end
-            elseif Config.Debug then
-                print(("^3[%s] Unable to check for updates (Status: %s).^0"):format(resource, relStatus))
             end
         end, 'GET', '', { ['User-Agent'] = 'FiveM-Server-VersionCheck' })
     end, 'GET', '', { ['User-Agent'] = 'FiveM-Server-VersionCheck' })
